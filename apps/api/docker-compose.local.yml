@@ -3,7 +3,7 @@ name: 'dcss-api'
 services:
   monster_catalog:
     container_name: monster_catalog
-    restart: no
+    restart: 'no'
     profiles:
       - monsters
     build:
@@ -14,7 +14,7 @@ services:
 
   postgres:
     container_name: postgres16
-    restart: no
+    restart: 'no'
     image: postgres:16
     ports:
       - '5432:5432'
@@ -60,7 +60,7 @@ services:
 
   prometheus:
     image: prom/prometheus:v3.6.0
-    restart: no
+    restart: 'no'
     profiles:
       - metrics
     ports:
@@ -74,7 +74,7 @@ services:
 
   node_exporter:
     image: quay.io/prometheus/node-exporter:v1.10.2
-    restart: no
+    restart: 'no'
     profiles:
       - metrics
     container_name: node_exporter
@@ -82,7 +82,7 @@ services:
   grafana:
     image: grafana/grafana-enterprise:12.1
     container_name: grafana
-    restart: no
+    restart: 'no'
     profiles:
       - metrics
     environment:

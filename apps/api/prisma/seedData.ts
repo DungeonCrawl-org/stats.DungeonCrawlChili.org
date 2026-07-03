@@ -33,6 +33,7 @@ export const data = {
     ['Co', 'Coglin'],
     ['Re', 'Revenant'],
     ['Po', 'Poltergeist'],
+    ['SS', 'Silent Spectre'],
     ['At', 'Armataur', false],
     ['Gh', 'Ghoul', false],
     ['Vp', 'Vampire', false],
@@ -182,6 +183,7 @@ export const data = {
       baseUrl: 'https://crawl-br.roguelikes.gg',
       morgueUrl: 'https://crawl-br.roguelikes.gg/morgue',
       ttyrecUrl: 'https://crawl-br.roguelikes.gg/ttyrec',
+      isDormant: true,
       logfiles: [
         ...rangeToTrunk(30).map((version) => ({
           path: `/meta/0.${version}/logfile`,
@@ -202,6 +204,7 @@ export const data = {
       baseUrl: 'https://archive.nemelex.cards',
       morgueUrl: 'https://archive.nemelex.cards/morgue',
       ttyrecUrl: 'https://archive.nemelex.cards/ttyrec',
+      isDormant: true,
       logfiles: [
         ...rangeToTrunk(11).map((version) => ({
           path: `/meta/crawl-0.${version}/logfile`,
@@ -222,6 +225,7 @@ export const data = {
       baseUrl: 'https://crawl.dcss.io',
       morgueUrl: 'https://crawl.dcss.io/crawl/morgue',
       ttyrecUrl: 'https://crawl.dcss.io/crawl/ttyrec',
+      isDormant: true,
       logfiles: [
         ...rangeToTrunk(30).map((version) => ({
           path: `/crawl/meta/crawl-0.${version}/logfile`,
@@ -242,6 +246,7 @@ export const data = {
       baseUrl: 'https://crawl.xtahua.com',
       morgueUrl: 'https://crawl.xtahua.com/crawl/morgue',
       ttyrecUrl: 'https://crawl.xtahua.com/crawl/ttyrec',
+      isDormant: true,
       logfiles: [
         ...rangeToTrunk(14).map((version) => ({
           path: `/crawl/meta/0.${version}/logfile`,
@@ -261,6 +266,7 @@ export const data = {
       url: 'https://underhound.eu:8080',
       baseUrl: 'https://underhound.eu',
       morgueUrl: 'https://underhound.eu/crawl/morgue',
+      isDormant: true,
       logfiles: [
         ...rangeToTrunk(10).map((version) => ({
           path: `/crawl/meta/0.${version}/logfile`,
@@ -305,6 +311,7 @@ export const data = {
       url: 'https://crawl.develz.org',
       baseUrl: 'https://crawl.develz.org',
       morgueUrl: 'https://crawl.develz.org/morgues',
+      isDormant: true,
       logfiles: [
         ...range(4, 9).map((version) => ({
           path: `/allgames-0.${version}`,
@@ -329,6 +336,7 @@ export const data = {
       url: 'http://crawl.berotato.org:8080',
       baseUrl: 'http://crawl.berotato.org',
       morgueUrl: 'http://crawl.berotato.org/crawl/morgue',
+      isDormant: true,
       logfiles: [
         ...range(13, 26).map((version) => ({
           path: `/crawl/meta/0.${version}/logfile`,
@@ -349,6 +357,7 @@ export const data = {
       baseUrl: 'https://cbro.berotato.org',
       morgueUrl: 'https://cbro.berotato.org/morgue',
       ttyrecUrl: 'https://cbro.berotato.org/ttyrec',
+      isDormant: true,
       logfiles: [
         ...rangeToTrunk(24).map((version) => ({
           path: `/meta/0.${version}/logfile`,
@@ -388,6 +397,7 @@ export const data = {
       url: 'https://crawl.akrasiac.org:8443',
       baseUrl: 'http://crawl.akrasiac.org',
       morgueUrl: 'http://crawl.akrasiac.org/rawdata',
+      isDormant: true,
       logfiles: [
         ...rangeToTrunk(4).map((version) => ({
           path: `/logfile${version.toString().padStart(2, '0')}`,
@@ -412,6 +422,7 @@ export const data = {
       url: 'http://lazy-life.ddo.jp:8080',
       baseUrl: 'http://lazy-life.ddo.jp/mirror',
       morgueUrl: 'http://lazy-life.ddo.jp:8080/morgue',
+      isDormant: true,
       logfiles: [
         ...rangeToTrunk(14).map((version) => ({
           path: `/meta/0.${version}/logfile`,
@@ -431,6 +442,7 @@ export const data = {
       url: 'https://crawl.project357.org',
       baseUrl: 'https://crawl.project357.org',
       morgueUrl: 'https://crawl.project357.org/morgue',
+      isDormant: true,
       logfiles: [
         ...rangeToTrunk(15).map((version) => ({
           path: `/dcss-logfiles-0.${version}`,
@@ -505,6 +517,21 @@ export const data = {
         {
           path: `/server-xlogs/cjr/meta/git/logfile`,
           version: 'git',
+          morgueUrlPrefix: undefined,
+        },
+      ],
+    },
+    {
+      name: 'Dungeon Crawl Fajita',
+      abbreviation: 'DCF',
+      url: 'https://dcf.dungeoncrawlforks.org',
+      baseUrl: 'https://dcf-data.dungeoncrawlforks.org',
+      morgueUrl: 'https://dcf-data.dungeoncrawlforks.org/morgue',
+      ttyrecUrl: 'https://dcf-data.dungeoncrawlforks.org/ttyrec',
+      logfiles: [
+        {
+          path: '/meta/crawl-dcchili/logfile',
+          version: '1.0',
           morgueUrlPrefix: undefined,
         },
       ],
