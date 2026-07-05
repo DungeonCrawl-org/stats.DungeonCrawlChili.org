@@ -5,11 +5,11 @@ import {
 } from 'lodash-es'
 import Link from 'next/link'
 import { PropsWithChildren } from 'react'
-import { fetchApi } from '~/api/server'
 import { WinrateStats } from '~/components/WinrateStats'
 import { HelpBubble } from '~/components/ui/Tooltip'
-import { Class, God, Player, Race } from '~/types'
+import { Class, God, Race } from '~/types'
 import { formatNumber } from '~/utils'
+import { getDcfTopStats, TopPlayers } from './dcfData'
 import { FavoritesList } from './FavoritesList'
 import { HighscoreTables } from './HighscoreTables'
 import { List } from './List'
@@ -22,15 +22,6 @@ type NormalizedData = {
   wins: number
   total: number
 }[]
-
-type TopPlayers = {
-  gamesTotal: number
-  winsTotal: number
-  minGamesThresholdForWinrate: number
-  byWins: Array<Pick<Player, 'name'> & { wins: number }>
-  byWinrate: Array<Pick<Player, 'name'> & { winrate: number; games: number }>
-  byTitles: Array<Pick<Player, 'name'> & { titles: number }>
-}
 
 export const Stats = async () => {
   'use cache'
@@ -49,21 +40,27 @@ export const Stats = async () => {
   //   }
   // })
 
-  const topVeryRecentRes: { data: TopPlayers } = await fetchApi(
-    `/top?minGamesThresholdForWinrate=15&since=${encodeURIComponent(dayjs().subtract(1, 'month').toISOString())}`,
-  ).then((r) => r.json())
-
-  const topRecentRes: { data: TopPlayers } = await fetchApi(
-    `/top?minGamesThresholdForWinrate=27&since=${encodeURIComponent(dayjs().subtract(1, 'year').toISOString())}`,
-  ).then((r) => r.json())
-
-  const topRes: { data: TopPlayers } = await fetchApi('/top').then((r) => r.json())
-  const topWithManyGamesRes: { data: TopPlayers } = await fetchApi(
-    '/top?minGamesThresholdForWinrate=500',
-  ).then((r) => r.json())
+  const [topVeryRecent, topRecent, top, topWithManyGames] = await Promise.all([
+    getDcfTopStats({
+      minGamesThresholdForWinrate: 15,
+      since: dayjs().subtract(1, 'month').toDate(),
+    }),
+    getDcfTopStats({
+      minGamesThresholdForWinrate: 27,
+      since: dayjs().subtract(1, 'year').toDate(),
+    }),
+    getDcfTopStats({ minGamesThresholdForWinrate: 75 }),
+    getDcfTopStats({ minGamesThresholdForWinrate: 500 }),
+  ])
 
   return (
     <div className="flex flex-col gap-x-10 gap-y-4">
+      <div className="text-sm text-gray-500 dark:text-gray-400">
+        Source:{' '}
+        <a className="underline" href="https://dcf-data.dungeoncrawlforks.org/meta/crawl-dcchili/logfile">
+          dcf-data.dungeoncrawlforks.org
+        </a>
+      </div>
       <div className="grid grid-cols-1 gap-x-10 gap-y-4 md:grid-cols-1">
         <div className="space-y-1">
           <div className="flex justify-between gap-1">
@@ -72,7 +69,7 @@ export const Stats = async () => {
               <span className="font-normal text-gray-600 dark:text-gray-400">(Last month)</span>
             </h3>
           </div>
-          <TopList showFavorites top={topVeryRecentRes.data} />
+          <TopList showFavorites top={topVeryRecent} />
         </div>
 
         <div className="space-y-1">
@@ -82,7 +79,7 @@ export const Stats = async () => {
               <span className="font-normal text-gray-600 dark:text-gray-400">(Last year)</span>
             </h3>
           </div>
-          <TopList top={topRecentRes.data} />
+          <TopList top={topRecent} />
         </div>
 
         <div className="space-y-1">
@@ -92,15 +89,15 @@ export const Stats = async () => {
               <span className="font-normal text-gray-600 dark:text-gray-400">(All Time)</span>
             </h3>
           </div>
-          <TopList top={topRes.data}>
+          <TopList top={top}>
             <List
               title="By win rate, %"
               afterTitle={
                 <span className="ml-auto text-right text-xs text-gray-400 dark:text-gray-500">
-                  (min. {topWithManyGamesRes.data.minGamesThresholdForWinrate} games)
+                  (min. {topWithManyGames.minGamesThresholdForWinrate} games)
                 </span>
               }
-              items={topWithManyGamesRes.data.byWinrate.map((item) => ({
+              items={topWithManyGames.byWinrate.map((item) => ({
                 name: item.name,
                 secondaryCount: `${item.games}g`,
                 count: formatNumber(item.winrate * 100, {

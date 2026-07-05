@@ -2,11 +2,11 @@ import type { MonsterCatalog } from '@dcss-stats/extractor/monsterCatalog'
 import { range } from 'lodash-es'
 import { Metadata } from 'next'
 import { Suspense } from 'react'
-import { fetchApi } from '~/api/server'
 import { sharedOGMetadata } from '~/app/shared-metadata'
 import { HeaderWithMenu } from '~/components/HeaderWithMenu'
 import { defaultMetaTitle } from '~/constants'
 import { MonsterTable } from '~/screens/Monsters/MonsterTable'
+import { getChiliMonsterCatalog } from './chiliMonsterCatalog'
 
 const title = `Monsters | ${defaultMetaTitle}`
 
@@ -31,12 +31,7 @@ function Skeleton() {
 }
 
 async function MonstersContent() {
-  const res = await fetchApi('/monsters')
-  const catalog: MonsterCatalog = await res.json()
-
-  if (!res.ok) {
-    throw res
-  }
+  const catalog = await getChiliMonsterCatalog()
 
   return <MonsterTable monsters={catalog.monsters} />
 }

@@ -1,17 +1,14 @@
 import { cacheLife } from 'next/cache'
 import { memo, Suspense } from 'react'
-import { fetchApi } from '~/api/server'
-import { Game, HighscoresResponse } from '~/types'
+import { Game } from '~/types'
+import { getDcfHighscores, getDcfRecentWins } from './dcfData'
 import { Table } from './Table'
 
-const take = 10
-
 async function fetchHighscores(params: Record<string, string>): Promise<Game[]> {
-  const fetchParams = new URLSearchParams({ ...params, take: String(take) })
-  const res: HighscoresResponse = await fetchApi('/highscores?' + fetchParams.toString()).then(
-    (r) => r.json(),
-  )
-  return res.data.map((entry) => entry.game)
+  return getDcfHighscores({
+    kind: params.kind as 'HIGHSCORE' | 'TURN_COUNT' | 'DURATION',
+    runeTier: params.runeTier as 'ALL' | 'TIER_1' | 'TIER_2',
+  })
 }
 
 export const HighscoreTables = () => {
@@ -71,14 +68,7 @@ export const RestTables = memo(async () => {
 const RecentWinsTable = memo(async () => {
   'use cache'
 
-  const res = await fetchApi('/main')
-  const {
-    data: { gamesByEndAt },
-  }: {
-    data: {
-      gamesByEndAt: Array<Game>
-    }
-  } = await res.json()
+  const gamesByEndAt = await getDcfRecentWins()
 
   return <Table games={gamesByEndAt} title="Recent wins" highlight="Date" />
 })

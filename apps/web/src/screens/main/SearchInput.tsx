@@ -1,39 +1,30 @@
 'use client'
 
 import { Autocomplete } from '@base-ui/react/autocomplete'
-import { useDebouncedEffect } from '@react-hookz/web'
 import { escapeRegExp, orderBy, startsWith } from 'lodash-es'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useState, useCallback, useRef } from 'react'
-import useSWRImmutable from 'swr/immutable'
-import { api } from '~/api'
-import { Player } from '~/types'
+import { useCallback, useMemo, useRef, useState } from 'react'
 
-type SearchItem = Player
+type SearchItem = { name: string }
 
-export const SearchInput = ({ nickname }: { nickname: string }) => {
+export const SearchInput = ({ nickname, playerNames }: { nickname: string; playerNames: string[] }) => {
   const [query, setQuery] = useState('')
 
   const router = useRouter()
-  const [debouncedQuery, setDebouncedQuery] = useState('')
+  const target = query.trim().toLowerCase()
+  const items = useMemo(() => {
+    if (!target) {
+      return []
+    }
 
-  useDebouncedEffect(() => setDebouncedQuery(query), [query], 400)
+    const matches = playerNames
+      .filter((name) => name.toLowerCase().includes(target))
+      .slice(0, 20)
+      .map((name) => ({ name }))
 
-  const { data } = useSWRImmutable(
-    ['/players', debouncedQuery],
-    ([url, query]) => {
-      return !query
-        ? undefined
-        : api.get<{ data: Array<SearchItem> }>(url, { params: { query } }).then((res) => {
-            const target = query.toLowerCase()
-            return orderBy(res.data.data, (x) => startsWith(x.name.toLowerCase(), target), 'desc')
-          })
-    },
-    { keepPreviousData: true },
-  )
-  const showLoader = !data
-  const items = data ?? []
+    return orderBy(matches, (item) => startsWith(item.name.toLowerCase(), target), 'desc')
+  }, [playerNames, target])
 
   const goToPlayerPage = useCallback((slug: string) => {
     router.push(`/players/${slug}`)
@@ -56,7 +47,7 @@ export const SearchInput = ({ nickname }: { nickname: string }) => {
     >
       <Autocomplete.InputGroup className="flex">
         <Autocomplete.Input
-          placeholder={`Search player by nickname, e.g. "${nickname}"`}
+          placeholder={`Search DCF player by nickname, e.g. "${nickname}"`}
           className="block h-10 w-full rounded-l-sm border border-gray-400 px-2 text-ellipsis"
           onFocus={(e) => {
             e.currentTarget.select()
@@ -86,12 +77,12 @@ export const SearchInput = ({ nickname }: { nickname: string }) => {
       <Autocomplete.Portal>
         <Autocomplete.Positioner sideOffset={4} className="z-20">
           <Autocomplete.Popup className="w-(--anchor-width) rounded-md border border-gray-200 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-800">
-            {showLoader && (
+            {!target && (
               <Autocomplete.Status className="px-3 py-2 text-sm text-gray-500 dark:text-zinc-400">
-                {query ? 'Loading...' : 'Type to search'}
+                Type to search DCF players
               </Autocomplete.Status>
             )}
-            {!showLoader && items.length === 0 && debouncedQuery && (
+            {target && items.length === 0 && (
               <Autocomplete.Empty className="px-3 py-2 text-sm text-gray-500 dark:text-zinc-400">
                 Nothing found
               </Autocomplete.Empty>
@@ -107,7 +98,7 @@ export const SearchInput = ({ nickname }: { nickname: string }) => {
                       goToPlayerPage(item.name)
                     }}
                   >
-                    <Highlighted text={item.name} query={debouncedQuery} />
+                    <Highlighted text={item.name} query={target} />
                   </Autocomplete.Item>
                 )}
               </Autocomplete.List>

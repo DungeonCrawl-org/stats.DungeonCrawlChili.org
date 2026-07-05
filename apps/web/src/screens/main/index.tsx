@@ -1,10 +1,8 @@
 import { Suspense } from 'react'
 import { Footer } from '~/components/Footer'
 import { HeaderWithMenu } from '~/components/HeaderWithMenu'
-import { LiveGames, LiveGamesSkeleton } from './LiveGames'
 import { Search } from './Search'
 import { Stats } from './Stats'
-import { Streams } from './Streams'
 import { TournamentBanner } from './TournamentBanner'
 
 export const MainPage = () => {
@@ -19,13 +17,6 @@ export const MainPage = () => {
           <TournamentBanner />
         </Suspense>
 
-        <Suspense fallback={null}>
-          <Streams />
-        </Suspense>
-
-        <Suspense fallback={<LiveGamesSkeleton />}>
-          <LiveGames />
-        </Suspense>
 
         <Suspense fallback={null}>
           <Stats />

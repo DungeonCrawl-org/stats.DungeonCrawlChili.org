@@ -9,7 +9,7 @@ import { useMemo, useState } from 'react'
 import { cn, pluralize } from '~/utils'
 
 const TILE_BASE_URL =
-  'https://raw.githubusercontent.com/crawl/crawl/9261420e9b7a3246420c534c70f4b09402a670ab/crawl-ref/source/rltiles'
+  'https://raw.githubusercontent.com/DungeonCrawl-org/DungeonCrawlChili/master/crawl-ref/source/rltiles'
 
 function getTileUrl(tilePath?: string): string | null {
   if (!tilePath) return null

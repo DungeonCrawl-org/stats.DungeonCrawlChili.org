@@ -6,14 +6,14 @@ export const Logo = () => {
     <Link className="inline-flex items-center space-x-2" href="/">
       <Image
         priority
-        alt="DCSS Stats app logo"
+        alt="Dungeon Crawl Chili Stats app logo"
         width="128"
         height="128"
         src="/logo.png"
         className="pixelated size-8"
         quality={100}
       />
-      <h1 className="text-center text-2xl whitespace-nowrap sm:text-4xl">DCSS Stats</h1>
+      <h1 className="text-center text-xl leading-tight sm:text-3xl">Dungeon Crawl Chili Stats</h1>
     </Link>
   )
 }

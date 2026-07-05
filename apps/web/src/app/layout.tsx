@@ -8,11 +8,11 @@ import { Providers } from './providers'
 import { sharedOGMetadata } from './shared-metadata'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://dcss-stats.com'),
+  metadataBase: new URL('https://stats.dungeoncrawlchili.org'),
   title: defaultMetaTitle,
   description: defaultMetaDescription,
   keywords:
-    "Dungeon Crawl Stone Soup, DCSS Online, Dungeon Crawl Online, DCSS Webtiles, Linley's Dungeon Crawl, Dungeon Crawl Stone Soup Stats, DCSS Stats, DCSS statistics, DCSS player stats, DCSS player history",
+    "Dungeon Crawl Stone Soup, DCSS Online, Dungeon Crawl Online, DCSS Webtiles, Linley's Dungeon Crawl, Dungeon Crawl Chili Stats, Dungeon Crawl Stone Soup Stats, DCSS statistics, DCSS player stats, DCSS player history",
   openGraph: {
     ...sharedOGMetadata,
   },

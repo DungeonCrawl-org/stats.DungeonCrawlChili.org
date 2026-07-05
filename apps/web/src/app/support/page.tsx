@@ -102,7 +102,7 @@ const SupportPage = async () => {
       <div className="mx-auto max-w-3xl space-y-8 px-4 pt-0 md:pt-8">
         <div className="space-y-4 text-center">
           <h2 className="flex items-center justify-center gap-3 text-3xl font-bold">
-            Support DCSS Stats App
+            Support Dungeon Crawl Chili Stats
           </h2>
           <div className="text-zinc-500 dark:text-zinc-400">
             Help us keep the data crunching and the servers running

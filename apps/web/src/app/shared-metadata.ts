@@ -10,7 +10,7 @@ export const sharedOGMetadata: Metadata['openGraph'] = {
       url: '/logo-256.png',
       width: 256,
       height: 256,
-      alt: 'DCSS Stats',
+      alt: 'Dungeon Crawl Chili Stats',
     },
   ],
 }

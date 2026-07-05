@@ -9,6 +9,6 @@ export const rootUrl =
     ? 'https://example.com'
     : 'https://stage.example.com')
 
-export const defaultMetaTitle = 'DCSS Stats'
+export const defaultMetaTitle = 'Dungeon Crawl Chili Stats'
 export const defaultMetaDescription =
   'Player and game statistics for Dungeon Crawl Stone Soup Online'

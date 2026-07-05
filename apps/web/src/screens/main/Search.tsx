@@ -1,4 +1,5 @@
 import { sample } from 'lodash-es'
+import { getDcfGames } from './dcfData'
 import { SearchInput } from './SearchInput'
 
 const nicknames = [
@@ -25,5 +26,9 @@ const nicknames = [
 export const Search = async () => {
   'use cache'
 
-  return <SearchInput nickname={sample(nicknames) ?? ''} />
+  const playerNames = Array.from(new Set((await getDcfGames()).map((game) => game.name))).sort((a, b) =>
+    a.localeCompare(b),
+  )
+
+  return <SearchInput nickname={sample(nicknames) ?? ''} playerNames={playerNames} />
 }
