@@ -246,7 +246,7 @@ export const data = {
       baseUrl: 'https://crawl.xtahua.com',
       morgueUrl: 'https://crawl.xtahua.com/crawl/morgue',
       ttyrecUrl: 'https://crawl.xtahua.com/crawl/ttyrec',
-      isDormant: true,
+      isDormant: false,
       logfiles: [
         ...rangeToTrunk(14).map((version) => ({
           path: `/crawl/meta/0.${version}/logfile`,
