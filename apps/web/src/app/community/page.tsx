@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 
 type CommunitySection = {
   title: string
+  headingClassName: string
   links: {
     href: string
     label: string
@@ -26,6 +27,7 @@ type CommunitySection = {
 const sections: CommunitySection[] = [
   {
     title: 'Dungeon Crawl Chili',
+    headingClassName: 'text-amber-600 dark:text-amber-400',
     links: [
       {
         label: 'Official Chili website',
@@ -56,6 +58,7 @@ const sections: CommunitySection[] = [
   },
   {
     title: 'Dungeon Crawl Forks',
+    headingClassName: 'text-sky-600 dark:text-sky-400',
     links: [
       {
         label: 'Dungeon Crawl Forks homepage',
@@ -76,6 +79,7 @@ const sections: CommunitySection[] = [
   },
   {
     title: 'Events and Challenges',
+    headingClassName: 'text-emerald-600 dark:text-emerald-400',
     links: [
       {
         label: 'Crawl Cosplay',
@@ -91,6 +95,7 @@ const sections: CommunitySection[] = [
   },
   {
     title: 'Upstream Crawl References',
+    headingClassName: 'text-violet-600 dark:text-violet-400',
     links: [
       {
         label: 'Dungeon Crawl Stone Soup source',
@@ -122,7 +127,9 @@ const CommunityPage = () => {
         <div className="space-y-7">
           {sections.map((section) => (
             <section key={section.title}>
-              <h3 className="text-lg font-semibold">{section.title}</h3>
+              <h3 className={`text-lg font-semibold ${section.headingClassName}`}>
+                {section.title}
+              </h3>
 
               <ul className="divide-y divide-zinc-200 dark:divide-zinc-800">
                 {section.links.map((link) => (
