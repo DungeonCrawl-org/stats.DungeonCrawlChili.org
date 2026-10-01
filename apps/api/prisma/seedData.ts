@@ -253,16 +253,6 @@ export const data = {
           version: '1.0',
           morgueUrlPrefix: undefined,
         },
-        ...rangeToTrunk(14).map((version) => ({
-          path: `/crawl/meta/0.${version}/logfile`,
-          version: `0.${version}`,
-          morgueUrlPrefix: undefined,
-        })),
-        {
-          path: `/crawl/meta/git/logfile`,
-          version: 'git',
-          morgueUrlPrefix: undefined,
-        },
       ],
     },
     {
@@ -447,16 +437,11 @@ export const data = {
       url: 'https://crawl.project357.org',
       baseUrl: 'https://crawl.project357.org',
       morgueUrl: 'https://crawl.project357.org/morgue',
-      isDormant: true,
+      isDormant: false,
       logfiles: [
-        ...rangeToTrunk(15).map((version) => ({
-          path: `/dcss-logfiles-0.${version}`,
-          version: `0.${version}`,
-          morgueUrlPrefix: undefined,
-        })),
         {
-          path: `/dcss-logfiles-trunk`,
-          version: 'git',
+          path: '/dcss-logfiles-chili',
+          version: '1.0',
           morgueUrlPrefix: undefined,
         },
       ],
