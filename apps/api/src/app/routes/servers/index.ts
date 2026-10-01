@@ -4,7 +4,7 @@ import { prisma } from '~/prisma'
 export const serversRoute = (app: AppType) => {
   app.get('/api/servers', async () => {
     const [servers, logfiles] = await Promise.all([
-      prisma.server.findMany(),
+      prisma.server.findMany({ where: { isDormant: false } }),
       prisma.logfile.findMany({
         include: {
           _count: {

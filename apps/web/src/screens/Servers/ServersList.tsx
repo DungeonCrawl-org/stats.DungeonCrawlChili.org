@@ -13,7 +13,7 @@ export const ServersList = async () => {
   return (
     <>
       <h2 className="text-lg font-semibold">
-        Tracking {servers.length} {pluralize('server', servers.length)}:
+        Tracking {servers.length} Dungeon Crawl Chili {pluralize('server', servers.length)}:
       </h2>
 
       {orderBy(
