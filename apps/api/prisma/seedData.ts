@@ -248,6 +248,11 @@ export const data = {
       ttyrecUrl: 'https://crawl.xtahua.com/crawl/ttyrec',
       isDormant: false,
       logfiles: [
+        {
+          path: '/crawl/meta/chili/logfile',
+          version: '1.0',
+          morgueUrlPrefix: undefined,
+        },
         ...rangeToTrunk(14).map((version) => ({
           path: `/crawl/meta/0.${version}/logfile`,
           version: `0.${version}`,
