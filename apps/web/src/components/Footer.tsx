@@ -9,12 +9,12 @@ export const Footer = ({ className }: { className?: string }) => (
     <div>
       Player and game statistics for{' '}
       <a
-        href="https://crawl.develz.org/"
+        href="https://dungeoncrawlchili.org/"
         target="_blank"
         rel="noopener noreferrer"
         className="underline"
       >
-        Dungeon Crawl Stone Soup
+        Dungeon Crawl Chili
       </a>
     </div>
 
@@ -27,8 +27,8 @@ export const Footer = ({ className }: { className?: string }) => (
         Community links
       </Link>
 
-      <Link prefetch={false} href="/support" className="hover:underline">
-        Donate to support this app
+      <Link prefetch={false} href="https://patreon.com/rogga" className="hover:underline">
+        Support RoGGa on Patreon
       </Link>
 
       <a
@@ -43,14 +43,9 @@ export const Footer = ({ className }: { className?: string }) => (
     </div>
 
     <div>
-      Made by <span className="font-semibold text-gray-500">totalnoob</span>, DM on{' '}
-      <a
-        href="https://discord.gg/pKCNTunFeW"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="underline"
-      >
-        RL Discord
+      Maintained by <span className="font-semibold text-gray-500">RoGGa</span>. Email{' '}
+      <a href="mailto:rogga@crawlcosplay.org" className="underline">
+        rogga@crawlcosplay.org
       </a>{' '}
       with bugs and suggestions
     </div>

@@ -3,5 +3,5 @@ export const menuItems = [
   { href: '/charts', label: 'Charts' },
   { href: '/highscores', label: 'Highscores' },
   { href: '/community', label: 'Community' },
-  { href: '/support', label: 'Support' },
+  { href: 'https://patreon.com/rogga', label: 'Support/Donations' },
 ] as const
